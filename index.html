@@ -239,7 +239,55 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>====pom====文件</p>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"><br><br>    <modelversion>4.0.0</modelversion><br>    <parent><br>        <groupid>com.taotao</groupid><br>        <artifactid>taotao-parent</artifactid><br>        <version>0.0.1-SNAPSHOT</version><br>    </parent><br>    <artifactid>taotao-manager-web</artifactid><br>    <packaging>war</packaging><br>    <dependencies><br>        <!-- JSP相关 --><br>        <dependency><br>            <groupid>jstl</groupid><br>            <artifactid>jstl</artifactid><br>        </dependency><br>        <dependency><br>            <groupid>javax.servlet</groupid><br>            <artifactid>servlet-api</artifactid><br>            <scope>provided</scope><br>        </dependency><br>        <dependency><br>            <groupid>javax.servlet</groupid><br>            <artifactid>jsp-api</artifactid><br>            <scope>provided</scope><br>        </dependency><br>        <!-- dubbo相关 --><br>        <dependency><br>            <groupid>com.alibaba</groupid><br>            <artifactid>dubbo</artifactid><br>            <!-- 排除依赖 --><br>            <exclusions><br>                <exclusion><br>                    <groupid>org.springframework</groupid><br>                    <artifactid>spring</artifactid><br>                </exclusion><br>                <exclusion><br>                    <groupid>org.jboss.netty</groupid><br>                    <artifactid>netty</artifactid><br>                </exclusion><br>            </exclusions><br>        </dependency><br>        <dependency><br>            <groupid>org.apache.zookeeper</groupid><br>            <artifactid>zookeeper</artifactid><br>        </dependency><br>        <dependency><br>            <groupid>com.github.sgroschupf</groupid><br>            <artifactid>zkclient</artifactid><br>        </dependency><br>    </dependencies><br></project>
+
+<p>==springmvc.xml==文件</p>
+<p>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd"><br><br>    &lt;context:component-scan base-package=”com.taotao.controller” /&gt;<br>    &lt;mvc:annotation-driven /&gt;<br>    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"><br>        <property name="prefix" value="/WEB-INF/jsp/"><br>        <property name="suffix" value=".jsp"><br>    </property></property></bean><br><br>    <!-- 引用dubbo服务 --><br>    &lt;dubbo:application name=”taotao-manager-web”/&gt;<br>    &lt;dubbo:registry protocol=”zookeeper” address=”192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183”/&gt;<br>    &lt;dubbo:reference interface=”com.taotao.service.ItemService” id=”itemService” /&gt;<br><br></beans>
+
+<p>====web====文件</p>
+<p>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<p><web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemalocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5"></web-app></p>
+<pre><code>&lt;display-name&gt;taotao-manager-web&lt;/display-name&gt;
+&lt;welcome-file-list&gt;
+    &lt;welcome-file&gt;login.html&lt;/welcome-file&gt;
+&lt;/welcome-file-list&gt;
+&lt;!-- 解决post乱码 --&gt;
+&lt;filter&gt;
+    &lt;filter-name&gt;CharacterEncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;encoding&lt;/param-name&gt;
+        &lt;param-value&gt;utf-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;CharacterEncodingFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+
+
+&lt;!-- springmvc的前端控制器 --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;taotao-manager&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;!-- contextConfigLocation不是必须的， 如果不配置contextConfigLocation， springmvc的配置文件默认在：WEB-INF/servlet的name+&quot;-servlet.xml&quot; --&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;classpath:spring/springmvc.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;taotao-manager&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><p></p>
+
       
 
       
