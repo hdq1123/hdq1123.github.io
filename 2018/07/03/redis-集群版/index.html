@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>redis 集群版 | 十年之后回家养猪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="redis-cluster架构图 架构细节:1:所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽. 2:节点的fail是通过集群中超过半数的节点检测失效时才生效. 3:客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可 4:redis-cluster把所有的物理节点映射到[0-16383]sl">
+  <meta name="description" content="redis-cluster架构图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis 集群版">
 <meta property="og:url" content="http://yoursite.com/2018/07/03/redis-集群版/index.html">
 <meta property="og:site_name" content="十年之后回家养猪">
-<meta property="og:description" content="redis-cluster架构图 架构细节:1:所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽. 2:节点的fail是通过集群中超过半数的节点检测失效时才生效. 3:客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可 4:redis-cluster把所有的物理节点映射到[0-16383]sl">
+<meta property="og:description" content="redis-cluster架构图">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/BFCDC1C88D3D4BC4B60CD689E99DAF37?method=download&shareKey=f6dfa1fef5796b5552a43c97a73dcf85">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/0D84993EFC484438A119A3C046B7ADBB?method=download&shareKey=8161849afcb7ef291474765c6c0039de">
-<meta property="og:updated_time" content="2018-07-03T13:53:16.235Z">
+<meta property="og:updated_time" content="2018-07-03T14:02:04.311Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis 集群版">
-<meta name="twitter:description" content="redis-cluster架构图 架构细节:1:所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽. 2:节点的fail是通过集群中超过半数的节点检测失效时才生效. 3:客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可 4:redis-cluster把所有的物理节点映射到[0-16383]sl">
+<meta name="twitter:description" content="redis-cluster架构图">
 <meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/BFCDC1C88D3D4BC4B60CD689E99DAF37?method=download&shareKey=f6dfa1fef5796b5552a43c97a73dcf85">
   
     <link rel="alternative" href="/atom.xml" title="十年之后回家养猪" type="application/atom+xml">
@@ -180,6 +180,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="redis-cluster架构图"><a href="#redis-cluster架构图" class="headerlink" title="redis-cluster架构图"></a>redis-cluster架构图</h2><p><img src="https://note.youdao.com/yws/api/personal/file/BFCDC1C88D3D4BC4B60CD689E99DAF37?method=download&amp;shareKey=f6dfa1fef5796b5552a43c97a73dcf85" alt="image"></p>
+<a id="more"></a>
 <h2 id="架构细节"><a href="#架构细节" class="headerlink" title="架构细节:"></a>架构细节:</h2><p>1:所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽.</p>
 <p>2:节点的fail是通过集群中超过半数的节点检测失效时才生效.</p>
 <p>3:客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可</p>
